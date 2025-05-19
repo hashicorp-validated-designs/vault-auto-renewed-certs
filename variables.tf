@@ -20,3 +20,15 @@ variable "aws-auth-account-id" {
 variable "aws-auth-unique-id" {
   type = string
 }
+
+variable "jwt-auth-service-account" {
+  type = string
+}
+
+variable "jwt-auth-jwks-url" {
+  type = string
+}
+
+variable "jwt-auth-jwks-ca-pem" {
+  type = string
+}
