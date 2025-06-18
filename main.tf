@@ -161,17 +161,32 @@ resource "vault_pki_secret_backend_config_auto_tidy" "pki_auto_tidy" {
 
 # Team role
 resource "vault_pki_secret_backend_role" "team-a" {
-  namespace         = vault_namespace.tenant_namespace.path_fq
-  backend           = vault_mount.tenant_issuing_ca.path
-  name              = "team-a"
-  allowed_domains   = ["tenant-1.example.com", "test.example.com"]
-  allow_subdomains  = true
-  key_type          = "ec"
-  key_bits          = 256
-  max_ttl           = 2592000
-  no_store          = true
-  generate_lease    = false
-  no_store_metadata = false
+  namespace                   = vault_namespace.tenant_namespace.path_fq
+  backend                     = vault_mount.tenant_issuing_ca.path
+  name                        = "team-a"
+  allowed_domains             = ["tenant-1.example.com"]
+  allow_subdomains            = true
+  allow_bare_domains          = false
+  allow_glob_domains          = false
+  allow_localhost             = false
+  allow_wildcard_certificates = false
+  allow_ip_sans               = false
+  enforce_hostnames           = true
+  server_flag                 = true
+  client_flag                 = false
+  code_signing_flag           = false
+  use_csr_common_name         = true
+  require_cn                  = true
+  use_csr_sans                = true
+  organization                = ["HashiCorp"]
+  policy_identifiers          = ["1.3.6.1.4.1.99999.999.1"]
+  key_usage                   = ["DigitalSignature", "KeyAgreement", "KeyEncipherment"]
+  key_type                    = "ec"
+  key_bits                    = 256
+  max_ttl                     = 2592000 # 720h in seconds
+  no_store                    = true
+  generate_lease              = false
+  no_store_metadata           = false
 }
 
 # Sentinel EGP
